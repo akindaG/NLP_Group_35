@@ -55,3 +55,7 @@ Weighted Average:
 The Logistic Regression model achieved an accuracy of 83.69% on the customer support ticket classification task. The model performed exceptionally well on Request and Change categories. Most classification errors occurred between Incident and Problem categories due to semantic similarity between these ticket types.
 
 The results demonstrate that TF-IDF combined with Logistic Regression provides an effective baseline approach for multiclass ticket classification.
+
+### Conclusion
+
+TF-IDF combined with Logistic Regression provides a strong baseline for customer-support ticket classification.
