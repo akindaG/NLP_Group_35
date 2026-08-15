@@ -5,7 +5,7 @@ function Hero(){
 
     return (
 
-        <section className="relative z-0 overflow-hidden pt-32 min-h-screen bg-slate-950 text-white">
+        <section className="relative z-0 overflow-hidden pt-28 pb-20 min-h-screen bg-slate-950 text-white">
 
 
             {/* Background Glow Effects */}
@@ -148,35 +148,35 @@ function Hero(){
 
 
 
-                    <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+                    <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl">
 
     {/* Card Header */}
-    <div className="flex items-center justify-between mb-8">
+<div className="flex items-center justify-between mb-8">
 
+    <div>
         <h3 className="text-2xl font-semibold">
             AI Ticket Analysis
         </h3>
 
-        {/* Live Status Indicator */}
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20">
+        <p className="text-xs text-slate-400 mt-1">
+            Real-time NLP prediction
+        </p>
+    </div>
 
-            <span className="relative flex h-2.5 w-2.5">
+    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20">
 
-                {/* Pulsing glow */}
-                <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping"></span>
+        <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+        </span>
 
-                {/* Actual dot */}
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-
-            </span>
-
-            <span className="text-xs font-medium text-green-400">
-                AI Online
-            </span>
-
-        </div>
+        <span className="text-xs font-medium text-green-400">
+            AI Online
+        </span>
 
     </div>
+
+</div>
 
 
     <div className="space-y-6">
@@ -318,10 +318,10 @@ function Hero(){
     </div>
 
 
-    <div className="w-full bg-slate-700 rounded-full h-3">
+    <div className="w-full bg-slate-700 rounded-full h-2">
 
         <div
-            className="bg-green-500 h-3 rounded-full"
+            className="bg-green-500 h-2 rounded-full"
             style={{width:"94.2%"}}
         >
 
@@ -338,36 +338,29 @@ function Hero(){
 
     {/* Keywords */}
 
-    <div>
+   <div>
 
+<p className="text-slate-400 text-sm mb-3">
+Important Keywords
+</p>
 
-        <p className="text-slate-400 text-sm mb-3">
-            Important Keywords
-        </p>
+<div className="flex gap-2 flex-wrap">
 
+<span className="px-3 py-1 bg-white/10 rounded-full text-sm">
+refund
+</span>
 
-        <div className="flex gap-2 flex-wrap">
+<span className="px-3 py-1 bg-white/10 rounded-full text-sm">
+payment
+</span>
 
+<span className="px-3 py-1 bg-white/10 rounded-full text-sm">
+charged
+</span>
 
-            <span className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                refund
-            </span>
+</div>
 
-
-            <span className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                payment
-            </span>
-
-
-            <span className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                charged
-            </span>
-
-
-        </div>
-
-
-    </div>
+</div>
 
 
 
