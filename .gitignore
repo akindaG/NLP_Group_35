@@ -12,3 +12,9 @@ __pycache__/
 
 # Model checkpoints
 distilbert_results/
+
+# Trained models
+models/member3/distilbert_model/
+models/member3/distilbert_tokenizer/
+models/member3/distilbert_label_encoder.pkl
+
