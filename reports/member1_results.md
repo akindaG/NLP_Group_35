@@ -55,3 +55,62 @@ Weighted Average:
 The Logistic Regression model achieved an accuracy of 83.69% on the customer support ticket classification task. The model performed exceptionally well on Request and Change categories. Most classification errors occurred between Incident and Problem categories due to semantic similarity between these ticket types.
 
 The results demonstrate that TF-IDF combined with Logistic Regression provides an effective baseline approach for multiclass ticket classification.
+
+### Conclusion
+
+TF-IDF combined with Logistic Regression provides a strong baseline for customer-support ticket classification.
+
+
+
+
+
+
+
+
+# BiLSTM Model Results
+
+
+## Model Description
+
+A Bidirectional Long Short-Term Memory (BiLSTM) neural network was implemented for customer support ticket classification.
+
+The model uses:
+
+- Text preprocessing pipeline
+- Tokenization
+- Sequence padding
+- Word embeddings
+- Bidirectional LSTM layer
+- Dense classification layer
+
+
+## Performance
+
+Accuracy:
+
+85.53%
+
+
+## Classification Report
+
+
+| Class | Precision | Recall | F1 Score |
+|---|---|---|---|
+| Change | 0.98 | 0.97 | 0.98 |
+| Incident | 0.79 | 0.88 | 0.84 |
+| Problem | 0.71 | 0.56 | 0.63 |
+| Request | 0.99 | 0.99 | 0.99 |
+
+
+## Observations
+
+The BiLSTM model achieved strong performance for customer support ticket classification.
+
+The model performed best on Change and Request categories.
+
+The main confusion occurred between Problem and Incident categories due to semantic similarity between these ticket types.
+
+
+## Conclusion
+
+The BiLSTM model improved classification performance compared with traditional machine learning approaches by learning contextual relationships in customer support text.
