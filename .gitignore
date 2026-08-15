@@ -1,4 +1,14 @@
+# Virtual environments
 venv/
-data/raw/*.csv
+bert_env/
+.venv/
+
+# Python cache
 __pycache__/
+*.pyc
+
+# Jupyter checkpoints
 .ipynb_checkpoints/
+
+# Model checkpoints
+distilbert_results/
