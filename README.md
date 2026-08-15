@@ -1,18 +1,4 @@
-I prepared a cleaned, corrected `README.md` for your repository.
-
-Changes made:
-
-* ✅ Changed **Group 33 → Group 35**
-* ✅ Changed **NLP_Group_33 → NLP_Group_35**
-* ✅ Adjusted Member 3 responsibilities to accurately represent your contribution
-* ✅ Removed overclaiming (backend/frontend/deployment ownership)
-* ✅ Kept DistilBERT + XGBoost contributions strong
-* ✅ Kept project architecture and academic details
-* ✅ Made it suitable for final GitHub submission
-
-Copy everything below and replace your current `README.md`.
-
-````markdown
+---
 # NLP_Group_35
 
 # SupportIQ  
