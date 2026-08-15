@@ -1,16 +1,3 @@
-I prepared a cleaned, corrected `README.md` for your repository.
-
-Changes made:
-
-* ✅ Changed **Group 33 → Group 35**
-* ✅ Changed **NLP_Group_33 → NLP_Group_35**
-* ✅ Adjusted Member 3 responsibilities to accurately represent your contribution
-* ✅ Removed overclaiming (backend/frontend/deployment ownership)
-* ✅ Kept DistilBERT + XGBoost contributions strong
-* ✅ Kept project architecture and academic details
-* ✅ Made it suitable for final GitHub submission
-
-Copy everything below and replace your current `README.md`.
 
 ````markdown
 # NLP_Group_35
@@ -639,12 +626,3 @@ CIT-24-01-0125
 
 ````
 
-After replacing README:
-
-```powershell
-git add README.md
-git commit -m "Update README documentation"
-git push origin feature/member3-cit-24-01-0125-xgboost-distilbert
-````
-
-Your PR will update automatically. Then merge. ✅
