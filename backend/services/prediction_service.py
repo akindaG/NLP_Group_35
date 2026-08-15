@@ -12,16 +12,141 @@ from backend.services.preprocessing import clean_text
 # ==================================================
 
 def extract_keywords(text):
-
-    words = text.split()
-
-    important_words = [
-        word
-        for word in words
-        if len(word) > 4
+    
+    stop_words = [
+        "the",
+        "is",
+        "not",
+        "my",
+        "and",
+        "this",
+        "that",
+        "with",
+        "from",
+        "for"
     ]
 
-    return important_words[:5]
+
+    words = text.lower().split()
+
+
+    keywords = []
+
+
+    for word in words:
+
+        if word not in stop_words and len(word) > 2:
+            keywords.append(word)
+
+
+    return keywords[:5]
+
+
+
+# ==================================================
+# Priority prediction
+# ==================================================
+
+def predict_priority(text):
+
+    high_priority_words = [
+
+        "failed",
+        "cannot",
+        "unable",
+        "blocked",
+        "urgent",
+        "error",
+        "not working",
+        "issue"
+
+    ]
+
+
+    text = text.lower()
+
+
+    for word in high_priority_words:
+
+        if word in text:
+
+            return "High"
+
+
+    return "Medium"
+
+
+
+
+# ==================================================
+# Sentiment analysis
+# ==================================================
+
+def analyze_sentiment(text):
+
+    negative_words = [
+
+        "failed",
+        "problem",
+        "issue",
+        "error",
+        "not working",
+        "cannot",
+        "unable",
+        "wrong"
+
+    ]
+
+
+    text = text.lower()
+
+
+    for word in negative_words:
+
+        if word in text:
+
+            return "Negative"
+
+
+    return "Neutral"
+
+
+
+
+# ==================================================
+# Department routing
+# ==================================================
+
+def assign_department(category):
+
+
+    departments = {
+
+
+        "Technical Support":
+            "Technical Support Team",
+
+
+        "Billing Issue":
+            "Finance Support",
+
+
+        "Account Access":
+            "Account Management",
+
+
+        "Login":
+            "Authentication Team"
+
+
+    }
+
+
+    return departments.get(
+        category,
+        "Customer Support Team"
+    )
+
 
 
 
@@ -31,16 +156,21 @@ def extract_keywords(text):
 
 def predict_ticket(text):
 
+
     print("📝 Starting prediction")
 
 
+
     print("1️⃣ Cleaning text")
+
 
     cleaned = clean_text(text)
 
 
 
+
     print("2️⃣ Applying TF-IDF")
+
 
     vector = models["vectorizer"].transform(
         [cleaned]
@@ -48,9 +178,12 @@ def predict_ticket(text):
 
 
 
+
     print("3️⃣ Loading XGBoost")
 
+
     xgb_model = get_xgb_model()
+
 
 
 
@@ -68,6 +201,8 @@ def predict_ticket(text):
 
 
 
+
+
     print("5️⃣ Decoding category")
 
 
@@ -77,10 +212,14 @@ def predict_ticket(text):
 
 
 
+
+
     confidence = round(
-    float(probabilities.max()),
-    3
-    ) if probabilities is not None else None
+        float(probabilities.max()),
+        3
+    )
+
+
 
 
 
@@ -90,17 +229,65 @@ def predict_ticket(text):
 
 
 
+
+    priority = predict_priority(
+        cleaned
+    )
+
+
+    sentiment = analyze_sentiment(
+        cleaned
+    )
+
+
+    department = assign_department(
+        label
+    )
+
+
+
+
+
     print("✅ Prediction completed")
 
 
+
+
+
+    from backend.services.business_rules import (
+    determine_priority,
+    determine_department
+    )
+
+    priority = determine_priority(cleaned)
+
+    department = determine_department(label)
+
     return {
 
-        "category": label,
 
-        "confidence": confidence,
+"category": label,
 
-        "keywords": keywords,
 
-        "cleaned_text": cleaned
+"confidence": confidence,
 
-    }
+
+"priority": priority,
+
+
+"department": department,
+
+
+"sentiment": "Negative",
+
+
+"model_used":
+"TF-IDF + XGBoost",
+
+
+"keywords": keywords,
+
+
+"cleaned_text": cleaned
+
+}

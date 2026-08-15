@@ -19,3 +19,6 @@ models/member3/distilbert_model/
 models/member3/distilbert_tokenizer/
 models/member3/distilbert_label_encoder.pkl
 
+node_modules/
+integration_env/
+.DS_Store

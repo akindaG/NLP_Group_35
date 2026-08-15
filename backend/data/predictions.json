@@ -1,0 +1,217 @@
+[
+    {
+        "category": "Technical Support",
+        "confidence": 0.28,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "payment",
+            "failed",
+            "money",
+            "was",
+            "deducted"
+        ],
+        "cleaned_text": "my payment failed and money was deducted",
+        "timestamp": "2026-08-16 02:47:41"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.28,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "payment",
+            "failed",
+            "money",
+            "was",
+            "deducted"
+        ],
+        "cleaned_text": "my payment failed and money was deducted",
+        "timestamp": "2026-08-16 02:47:57"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.326,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "internet",
+            "connection",
+            "working"
+        ],
+        "cleaned_text": "my internet connection is not working",
+        "timestamp": "2026-08-16 02:49:31"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.326,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "internet",
+            "connection",
+            "working"
+        ],
+        "cleaned_text": "my internet connection is not working",
+        "timestamp": "2026-08-16 02:49:33"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.326,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "internet",
+            "connection",
+            "working"
+        ],
+        "cleaned_text": "my internet connection is not working",
+        "timestamp": "2026-08-16 02:49:54"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.326,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "internet",
+            "connection",
+            "working"
+        ],
+        "cleaned_text": "my internet connection is not working",
+        "timestamp": "2026-08-16 02:54:03"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.326,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "internet",
+            "connection",
+            "working"
+        ],
+        "cleaned_text": "my internet connection is not working",
+        "timestamp": "2026-08-16 02:54:05"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.326,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "internet",
+            "connection",
+            "working"
+        ],
+        "cleaned_text": "my internet connection is not working",
+        "timestamp": "2026-08-16 02:54:20"
+    },
+    {
+        "category": "Billing and Payments",
+        "confidence": 0.622,
+        "priority": "High",
+        "department": "General Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "payment",
+            "failed",
+            "cannot",
+            "complete",
+            "transaction"
+        ],
+        "cleaned_text": "my payment failed and i cannot complete the transaction",
+        "timestamp": "2026-08-16 03:04:36"
+    },
+    {
+        "category": "Billing and Payments",
+        "confidence": 0.622,
+        "priority": "High",
+        "department": "General Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "payment",
+            "failed",
+            "cannot",
+            "complete",
+            "transaction"
+        ],
+        "cleaned_text": "my payment failed and i cannot complete the transaction",
+        "timestamp": "2026-08-16 03:04:57"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.305,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "app",
+            "working"
+        ],
+        "cleaned_text": "my app is not working",
+        "timestamp": "2026-08-16 03:12:27"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.28,
+        "priority": "High",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "payment",
+            "failed",
+            "money",
+            "was",
+            "deducted"
+        ],
+        "cleaned_text": "my payment failed and money was deducted",
+        "timestamp": "2026-08-16 03:33:01"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.316,
+        "priority": "Medium",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "acdas"
+        ],
+        "cleaned_text": "acdas",
+        "timestamp": "2026-08-16 03:46:35"
+    },
+    {
+        "category": "Technical Support",
+        "confidence": 0.316,
+        "priority": "Medium",
+        "department": "Technical Support Team",
+        "sentiment": "Negative",
+        "model_used": "TF-IDF + XGBoost",
+        "keywords": [
+            "deqcve"
+        ],
+        "cleaned_text": "deqcve",
+        "timestamp": "2026-08-16 03:54:16"
+    }
+]
