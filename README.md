@@ -1,57 +1,69 @@
+I prepared a cleaned, corrected `README.md` for your repository.
+
+Changes made:
+
+* ✅ Changed **Group 33 → Group 35**
+* ✅ Changed **NLP_Group_33 → NLP_Group_35**
+* ✅ Adjusted Member 3 responsibilities to accurately represent your contribution
+* ✅ Removed overclaiming (backend/frontend/deployment ownership)
+* ✅ Kept DistilBERT + XGBoost contributions strong
+* ✅ Kept project architecture and academic details
+* ✅ Made it suitable for final GitHub submission
+
+Copy everything below and replace your current `README.md`.
+
+````markdown
 # NLP_Group_35
-Enterprise Customer Support Intelligence Platform using NLP
-# SupportIQ
-### Intelligent NLP-Based Customer Support Ticket Classification, Routing, and Analytics System
+
+# SupportIQ  
+## Enterprise Customer Support Intelligence Platform using NLP
 
 ---
 
 ## 📌 Project Overview
 
-SupportIQ is an end-to-end Natural Language Processing (NLP) system developed for the **CCS3356 – Natural Language Processing** module at **Sri Lanka Technology Campus (SLTC)**.
+SupportIQ is an end-to-end Natural Language Processing (NLP) based customer support intelligence system developed for the **CCS3356 – Natural Language Processing** module at **Sri Lanka Technology Campus (SLTC)**.
 
-The system automatically analyzes customer support tickets and performs multiple intelligent tasks including:
+The system automatically analyzes customer support tickets and performs intelligent tasks including:
 
-- Department Routing
 - Ticket Type Classification
+- Department Routing
 - Priority Prediction
 - Sentiment Analysis
 - Explainable AI Analysis
 - Interactive Analytics Dashboard
 
-The project compares traditional Machine Learning approaches with Deep Learning and Transformer-based architectures to evaluate their effectiveness in customer support automation.
+The project evaluates and compares traditional Machine Learning models, Deep Learning models, and Transformer-based architectures for automated customer support ticket analysis.
 
 ---
 
 # 🎯 Project Objectives
 
-The primary objectives of this project are:
+The main objectives of this project are:
 
 ### 1. Ticket Classification
 
-Automatically identify the type of customer support ticket.
+Automatically identify the category of customer support tickets.
 
 ### 2. Department Routing
 
-Route tickets to the most appropriate support queue.
+Assign incoming tickets to the most suitable support department.
 
 ### 3. Priority Prediction
 
-Predict ticket urgency levels.
+Predict ticket urgency levels to improve support response efficiency.
 
 ### 4. Sentiment Analysis
 
-Determine customer sentiment from ticket content.
+Analyze customer emotions and sentiment from ticket content.
 
-### 5. Explainability
+### 5. Explainable AI
 
-Provide transparent explanations for model predictions using SHAP and LIME.
+Provide interpretable explanations for model predictions using explainability techniques.
 
-### 6. Deployment
+### 6. Model Comparison
 
-Deliver a production-style web application consisting of:
-
-- Flask Backend API
-- Streamlit Frontend Dashboard
+Compare different NLP architectures and evaluate their performance.
 
 ---
 
@@ -65,13 +77,12 @@ Source:
 
 https://www.kaggle.com/datasets/tobiasbueck/multilingual-customer-support-tickets
 
----
 
 ## Dataset Description
 
-The dataset contains multilingual customer support tickets collected from multiple support domains.
+The dataset contains multilingual customer support conversations collected from different support domains.
 
-Each ticket includes:
+Each record includes:
 
 - Subject
 - Customer Message Body
@@ -81,59 +92,45 @@ Each ticket includes:
 - Priority Level
 - Language
 
----
 
 ## Dataset Schema
 
 | Column | Description |
-|----------|-------------|
+|---|---|
 | subject | Ticket title |
 | body | Customer support request |
 | answer | Support response |
 | type | Ticket category |
-| queue | Department / support queue |
+| queue | Support department |
 | priority | Ticket priority |
 | language | Ticket language |
 
----
-
-## Dataset Statistics
-
-| Metric | Value |
-|----------|----------|
-| Total Records | ~28,587 |
-| Languages | English, German |
-| Ticket Types | 4 |
-| Support Queues | 10 |
-| Priority Levels | 3 |
-
----
 
 ## Selected Dataset for Training
 
-For model development, only English-language tickets are used.
+Only English-language tickets are selected for model development.
 
 ```python
 df = df[df["language"] == "en"]
-```
+````
 
-This reduces language-related noise and improves model consistency.
+This improves consistency and reduces multilingual noise.
 
 ---
 
 # 🎯 Prediction Tasks
 
-## Task 1 – Ticket Type Classification
+## Task 1: Ticket Type Classification
 
-Target Column:
+Target:
 
-```text
+```
 type
 ```
 
 Classes:
 
-```text
+```
 Incident
 Request
 Problem
@@ -142,17 +139,17 @@ Change
 
 ---
 
-## Task 2 – Priority Prediction
+## Task 2: Priority Prediction
 
-Target Column:
+Target:
 
-```text
+```
 priority
 ```
 
 Classes:
 
-```text
+```
 Low
 Medium
 High
@@ -160,17 +157,17 @@ High
 
 ---
 
-## Task 3 – Department Routing
+## Task 3: Department Routing
 
-Target Column:
+Target:
 
-```text
+```
 queue
 ```
 
 Classes:
 
-```text
+```
 Technical Support
 Product Support
 Customer Service
@@ -189,20 +186,21 @@ Service Outages and Maintenance
 
 ---
 
-## Member 1
-### CIT-24-01-0453
+# Member 1
+
+## CIT-24-01-0453
 
 ### Responsibilities
 
-- Text Preprocessing
-- TF-IDF Feature Engineering
-- Logistic Regression
-- BiLSTM
-- Model Evaluation
+* Text preprocessing
+* TF-IDF feature engineering
+* Logistic Regression implementation
+* BiLSTM implementation
+* Model evaluation
 
-### Files
+### Main Files
 
-```text
+```
 src/preprocessing/
 
 cleaning.py
@@ -210,6 +208,7 @@ tokenization.py
 stopwords.py
 lemmatization.py
 pipeline.py
+
 
 src/models/member1/
 
@@ -219,19 +218,20 @@ bilstm.py
 
 ---
 
-## Member 2
-### CIT-24-01-0023
+# Member 2
+
+## CIT-24-01-0023
 
 ### Responsibilities
 
-- Word2Vec Embeddings
-- SVM
-- GRU
-- Model Evaluation
+* Word2Vec embeddings
+* SVM classifier
+* GRU model implementation
+* Model evaluation
 
-### Files
+### Main Files
 
-```text
+```
 src/models/member2/
 
 word2vec_features.py
@@ -241,175 +241,181 @@ gru_model.py
 
 ---
 
-## Member 3
-### CIT-24-01-0125
+# Member 3
+
+## CIT-24-01-0125
 
 ### Responsibilities
 
-- Exploratory Data Analysis
-- XGBoost
-- DistilBERT
-- Sentiment Analysis
-- Department Routing
-- SHAP
-- LIME
-- Backend Development
-- Frontend Development
-- Deployment
-- Final Integration
+* Exploratory Data Analysis
+* XGBoost classifier implementation
+* DistilBERT transformer classifier
+* Model training and evaluation
+* Explainability integration support
+* Final model integration support
 
-### Files
+### Main Files
 
-```text
+```
 src/models/member3/
 
 xgboost_classifier.py
 distilbert_classifier.py
 
-src/sentiment/
 
-sentiment_predictor.py
+reports/
 
-src/routing/
+member3_distilbert_results.json
+member3_distilbert_summary.json
+member3_xgboost_results.md
 
-department_router.py
+
+notebooks/
+
+member3_distilbert.ipynb
+member3_xgboost.ipynb
 ```
 
 ---
 
 # 🏗 System Architecture
 
-```text
-Customer Ticket
-       │
-       ▼
+```
+Customer Support Ticket
+
+          │
+
+          ▼
 
 Text Preprocessing
-       │
-       ▼
+
+          │
+
+          ▼
 
 Feature Engineering
-       │
- ┌─────┼─────────┐
- │     │         │
- ▼     ▼         ▼
 
-TF-IDF Word2Vec DistilBERT
+          │
 
- │      │         │
- ▼      ▼         ▼
+ ┌────────┼─────────┐
 
-LogReg  SVM     XGBoost
+ ▼        ▼         ▼
 
-BiLSTM  GRU     DistilBERT
+TF-IDF  Word2Vec  DistilBERT
 
-       │
-       ▼
+
+ ▼        ▼         ▼
+
+Logistic  SVM     XGBoost
+
+Regression GRU    DistilBERT
+
+
+          │
+
+          ▼
 
 Model Evaluation
-       │
-       ▼
 
-SHAP + LIME
-       │
-       ▼
 
-Flask Backend API
-       │
-       ▼
+          │
 
-Streamlit Dashboard
-       │
-       ▼
+          ▼
 
-Deployment
+Explainable AI
+
+
+          │
+
+          ▼
+
+Application Layer
 ```
 
 ---
 
-# 🤖 Models Implemented
+# 🤖 Implemented Models
 
 ## Traditional Machine Learning
 
 ### Logistic Regression
 
-- TF-IDF Features
-- Baseline Model
+* TF-IDF based baseline classifier
+* Used for comparison
 
 ### Support Vector Machine (SVM)
 
-- Word2Vec Features
-- Non-linear Classification
+* Word2Vec feature representation
+* Classification model
 
 ### XGBoost
 
-- Gradient Boosting Framework
-- High-performance classification
+* Gradient boosting based classifier
+* High-performance machine learning approach
 
 ---
 
-## Deep Learning
+# Deep Learning Models
 
-### BiLSTM
+## BiLSTM
 
-- Sequential Text Learning
-- Context-Aware Classification
+* Learns sequential text patterns
+* Captures contextual information
 
-### GRU
+## GRU
 
-- Lightweight Recurrent Architecture
-- Faster Training
+* Lightweight recurrent neural architecture
+* Efficient sequence modelling
 
 ---
 
-## Transformer-Based Model
+# Transformer Model
 
-### DistilBERT
+## DistilBERT
 
-- Pre-trained Transformer
-- State-of-the-art NLP Performance
-- Transfer Learning Approach
+DistilBERT is used as a transformer-based classifier.
+
+Features:
+
+* Pre-trained language representation
+* Transfer learning approach
+* CUDA GPU training support
+* Context-aware text classification
 
 ---
 
 # 📈 Explainable AI
 
-The project integrates Explainable AI techniques to interpret model decisions.
-
----
+Explainability techniques are used to understand model decisions.
 
 ## SHAP
 
 Used for:
 
-- Global Feature Importance
-- Prediction Interpretation
-- Model Transparency
-
----
+* Feature importance analysis
+* Global model interpretation
 
 ## LIME
 
 Used for:
 
-- Local Prediction Explanation
-- Individual Ticket Analysis
-- Human-readable Model Insights
+* Individual prediction explanations
+* Human-readable model interpretation
 
 ---
 
-# 🧹 Data Preprocessing
+# 🧹 Data Preprocessing Pipeline
 
 The preprocessing pipeline includes:
 
-- Lowercasing
-- Special Character Removal
-- Stopword Removal
-- Tokenization
-- Lemmatization
-- Text Normalization
+* Lowercasing
+* Removing special characters
+* Stopword removal
+* Tokenization
+* Lemmatization
+* Text normalization
 
-Combined Text Feature:
+Combined text feature:
 
 ```python
 df["text"] = df["subject"] + " " + df["body"]
@@ -421,64 +427,54 @@ df["text"] = df["subject"] + " " + df["body"]
 
 Models are evaluated using:
 
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- Confusion Matrix
+* Accuracy
+* Precision
+* Recall
+* F1-score
+* Confusion Matrix
 
 ---
 
-# 🚀 Backend
+# 🚀 Application Components
 
-## Framework
+## Backend
 
+Framework:
+
+```
 Flask
-
-### API Endpoints
-
-```text
-/health
-
-/predict/type
-
-/predict/priority
-
-/predict/queue
-
-/sentiment
-
-/explain
 ```
 
+Responsibilities:
+
+* Model prediction API
+* Request handling
+* Integration with trained models
+
 ---
 
-# 🎨 Frontend
+## Frontend
 
-## Framework
+Framework:
 
+```
 Streamlit
+```
 
-### Features
+Features:
 
-- Ticket Submission
-- Real-time Predictions
-- Department Routing
-- Sentiment Analysis
-- Explainability Dashboard
-- Analytics Dashboard
+* Ticket input interface
+* Prediction visualization
+* Analytics dashboard
+* Model output display
 
 ---
 
 # 📂 Project Structure
 
-```text
-NLP_Group_33/
+```
+NLP_Group_35/
 
-│
-├── app/
-│   ├── backend/
-│   └── frontend/
 │
 ├── data/
 │   ├── raw/
@@ -488,23 +484,21 @@ NLP_Group_33/
 │
 ├── notebooks/
 │   ├── 01_data_profiling.ipynb
+│   ├── member3_distilbert.ipynb
+│   └── member3_xgboost.ipynb
 │
 ├── reports/
-│   └── eda_summary.md
-│
-├── presentations/
+│   ├── eda_summary.md
+│   ├── member3_distilbert_results.json
+│   └── member3_xgboost_results.md
 │
 ├── screenshots/
-│   ├── preprocessing/
-│   ├── models/
-│   ├── frontend/
-│   └── deployment/
 │
 ├── src/
 │   ├── preprocessing/
-│   ├── sentiment/
+│   ├── models/
 │   ├── routing/
-│   └── models/
+│   └── sentiment/
 │
 ├── requirements.txt
 ├── README.md
@@ -517,13 +511,13 @@ NLP_Group_33/
 
 ## Main Branch
 
-```text
+```
 main
 ```
 
 ## Development Branches
 
-```text
+```
 feature/member1-cit-24-01-0453-logreg-bilstm
 
 feature/member2-cit-24-01-0023-svm-gru
@@ -531,7 +525,7 @@ feature/member2-cit-24-01-0023-svm-gru
 feature/member3-cit-24-01-0125-xgboost-distilbert
 ```
 
-Development is performed independently and merged into the main branch through Pull Requests.
+Each member develops independently and merges changes through Pull Requests.
 
 ---
 
@@ -539,105 +533,118 @@ Development is performed independently and merged into the main branch through P
 
 ## Programming
 
-- Python 3.12
+* Python
 
 ## Data Processing
 
-- Pandas
-- NumPy
+* Pandas
+* NumPy
 
 ## NLP
 
-- NLTK
-- Transformers
+* NLTK
+* Transformers
 
 ## Machine Learning
 
-- Scikit-Learn
-- XGBoost
+* Scikit-learn
+* XGBoost
 
 ## Deep Learning
 
-- TensorFlow
-- Keras
+* TensorFlow
+* PyTorch
 
 ## Explainability
 
-- SHAP
-- LIME
+* SHAP
+* LIME
 
 ## Visualization
 
-- Matplotlib
-- Seaborn
+* Matplotlib
+* Seaborn
 
 ## Backend
 
-- Flask
+* Flask
 
 ## Frontend
 
-- Streamlit
+* Streamlit
 
 ## Version Control
 
-- Git
-- GitHub
+* Git
+* GitHub
 
 ---
 
 # 📋 Deliverables
 
-### Source Code
+## Source Code
 
-Complete GitHub Repository
+Complete NLP system implementation
 
-### Models
+## Machine Learning Models
 
-- Logistic Regression
-- BiLSTM
-- SVM
-- GRU
-- XGBoost
-- DistilBERT
+* Logistic Regression
+* BiLSTM
+* SVM
+* GRU
+* XGBoost
+* DistilBERT
 
-### Reports
+## Reports
 
-- EDA Report
-- Evaluation Report
-- Final Report
+* Exploratory Data Analysis Report
+* Model Evaluation Reports
+* Final Documentation
 
-### Application
+## Application
 
-- Flask Backend
-- Streamlit Frontend
-
-### Presentation
-
-- Final Demonstration
-- Viva Presentation
+* Backend API
+* Frontend Dashboard
 
 ---
 
 # 🎓 Academic Information
 
-**Module:** CCS3356 – Natural Language Processing
+**Module:**
+CCS3356 – Natural Language Processing
 
-**Institution:** Sri Lanka Technology Campus (SLTC)
+**Institution:**
+Sri Lanka Technology Campus (SLTC)
 
-**Academic Year:** 2026
+**Academic Year:**
+2026
 
 ---
 
 # 👥 Authors
 
-### Group 33
+## Group 35
 
-**Member 1**
+### Member 1
+
 CIT-24-01-0453
 
-**Member 2**
+### Member 2
+
 CIT-24-01-0023
 
-**Member 3**
+### Member 3
+
 CIT-24-01-0125
+
+````
+
+After replacing README:
+
+```powershell
+git add README.md
+git commit -m "Update README documentation"
+git push origin feature/member3-cit-24-01-0125-xgboost-distilbert
+````
+
+Your PR will update automatically. Then merge. ✅
