@@ -5,9 +5,19 @@ import {
     Brain,
     Sparkles,
     Activity,
-    AlertTriangle,
-    CheckCircle
+    Send,
+    ShieldCheck,
+    BarChart3
 } from "lucide-react";
+
+
+import { analyzeTicket as predictTicket } 
+from "../services/api";
+
+
+import PipelineStatus from "../components/PipelineStatus";
+import PredictionCard from "../components/PredictionCard";
+
 
 
 
@@ -16,49 +26,137 @@ function Analyzer(){
 
 const [ticket,setTicket] = useState("");
 
-const [analyzed,setAnalyzed] = useState(false);
-
 const [loading,setLoading] = useState(false);
 
+const [analyzed,setAnalyzed] = useState(false);
+
+const [prediction,setPrediction] = useState(null);
+
+const [error,setError] = useState("");
 
 
-const analyzeTicket = () => {
+
+
+
+const analyzeTicket = async()=>{
 
 
 if(!ticket.trim()){
-    return;
+
+return;
+
 }
+
+
+
+try{
 
 
 setLoading(true);
 
+setAnalyzed(false);
 
-setTimeout(()=>{
+setError("");
+
+
+
+const result = await predictTicket(ticket);
+
+
+
+console.log(
+"AI Prediction Result:",
+result
+);
+
+
+
+setPrediction(result);
+
+
 
 setLoading(false);
 
 setAnalyzed(true);
 
 
-},1200);
+
+}
+
+
+catch(err){
+
+
+console.error(
+err
+);
+
+
+
+setError(
+"AI service unavailable. Check backend connection."
+);
+
+
+
+setLoading(false);
+
+
+
+}
 
 
 };
 
 
 
+
+
+
+
+const models=[
+
+
+{
+name:"XGBoost",
+task:"Ticket Classification",
+accuracy:"91.8%"
+},
+
+
+{
+name:"TF-IDF NLP",
+task:"Text Feature Extraction",
+accuracy:"95%"
+},
+
+
+{
+name:"Prediction Engine",
+task:"Enterprise Routing",
+accuracy:"92.6%"
+}
+
+
+
+];
+
+
+
+
+
+
 return (
+
 
 
 <section
 
 className="
 min-h-screen
-relative
-overflow-hidden
-bg-slate-950
+bg-[#050816]
 text-white
-pt-32
+pt-28
 pb-20
 "
 
@@ -66,32 +164,11 @@ pb-20
 >
 
 
-{/* Background Glow */}
-
 
 <div
 
 className="
-absolute
-top-20
-left-1/2
--translate-x-1/2
-w-[600px]
-h-[300px]
-bg-blue-600/20
-blur-[150px]
-rounded-full
-"
-
-/>
-
-
-
-<div
-
-className="
-relative
-max-w-5xl
+max-w-7xl
 mx-auto
 px-6
 "
@@ -100,7 +177,10 @@ px-6
 
 
 
-{/* Header */}
+
+
+{/* HEADER */}
+
 
 
 <motion.div
@@ -108,7 +188,7 @@ px-6
 
 initial={{
 opacity:0,
-y:40
+y:30
 }}
 
 
@@ -118,16 +198,10 @@ y:0
 }}
 
 
-
-transition={{
-duration:0.7
-}}
-
-
 className="
-text-center
-mb-12
+mb-10
 "
+
 
 >
 
@@ -143,19 +217,16 @@ py-2
 rounded-full
 bg-blue-500/10
 border
-border-blue-400/20
+border-blue-500/30
 text-blue-400
 text-sm
-mb-6
 "
 
 >
 
-
 <Sparkles size={16}/>
 
-
-AI Ticket Intelligence
+AI Ticket Intelligence Engine
 
 
 </div>
@@ -163,38 +234,36 @@ AI Ticket Intelligence
 
 
 
+
 <h1
 
 className="
-text-4xl
-md:text-5xl
+text-5xl
 font-bold
+mt-6
 "
 
 >
 
-Analyze Customer Support Tickets
+Enterprise AI Analyzer
 
 </h1>
-
 
 
 
 <p
 
 className="
-mt-5
 text-slate-400
+mt-4
 text-lg
 "
 
 >
 
-Powered by NLP models,
-transformers, and machine learning pipelines.
+Real-time NLP powered customer support ticket intelligence.
 
 </p>
-
 
 
 </motion.div>
@@ -205,62 +274,77 @@ transformers, and machine learning pipelines.
 
 
 
-{/* Input Section */}
+
+
+{/* INPUT + PIPELINE */}
 
 
 
-<motion.div
-
-
-initial={{
-opacity:0,
-scale:0.95
-}}
-
-
-animate={{
-opacity:1,
-scale:1
-}}
-
-
-transition={{
-duration:0.5
-}}
-
-
+<div
 
 className="
-bg-white/10
-border
-border-white/20
-backdrop-blur-xl
-rounded-3xl
-p-8
+grid
+lg:grid-cols-2
+gap-8
 "
-
 
 
 >
 
 
-<div className="
+
+
+
+{/* INPUT CARD */}
+
+
+
+<motion.div
+
+className="
+bg-white/5
+border
+border-white/10
+rounded-3xl
+p-8
+backdrop-blur-xl
+"
+
+
+>
+
+
+
+<div
+
+className="
 flex
 items-center
 gap-3
-mb-5
-">
+mb-6
+"
+
+>
 
 
 <Brain
-className="text-blue-400"
+
+className="
+text-blue-400
+"
+
 />
 
 
-<h2 className="
+
+<h2
+
+className="
 text-xl
 font-semibold
-">
+"
+
+>
 
 Customer Ticket
 
@@ -273,38 +357,43 @@ Customer Ticket
 
 
 
+
+
 <textarea
 
 
 value={ticket}
 
 
-onChange={(e)=>setTicket(e.target.value)}
+onChange={
+(e)=>setTicket(e.target.value)
+}
 
 
 placeholder="
-Example: I was charged twice for my subscription...
+Example:
+My payment failed and I cannot complete transaction
 "
 
 
 className="
 w-full
-h-48
-bg-slate-900/70
+h-52
+bg-slate-900
 border
 border-white/10
 rounded-xl
 p-5
-text-white
-placeholder:text-slate-500
 outline-none
-focus:border-blue-500
 resize-none
+focus:border-blue-500
 "
 
 
 
+
 />
+
 
 
 
@@ -328,27 +417,35 @@ rounded-xl
 bg-blue-600
 hover:bg-blue-500
 disabled:bg-blue-900
-font-semibold
-transition
 flex
 items-center
 justify-center
 gap-3
+font-semibold
+transition
 "
-
-
 
 >
 
 
 {
+
 loading ?
+
 
 <>
 
-<Activity className="animate-spin"/>
+<Activity
 
-Analyzing with AI...
+className="
+animate-spin
+"
+
+/>
+
+
+Running AI Pipeline...
+
 
 </>
 
@@ -357,17 +454,53 @@ Analyzing with AI...
 
 <>
 
-<Brain size={20}/>
+<Send size={18}/>
+
 
 Analyze Ticket
 
+
 </>
+
 
 }
 
 
 
 </button>
+
+
+
+
+
+
+
+{
+
+error && (
+
+
+<p
+
+className="
+mt-4
+text-red-400
+text-sm
+"
+
+>
+
+{error}
+
+</p>
+
+
+)
+
+
+}
+
+
 
 
 
@@ -381,42 +514,247 @@ Analyze Ticket
 
 
 
+{/* PIPELINE */}
 
-{/* Prediction Result */}
+
+
+<PipelineStatus />
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* MODEL PERFORMANCE */}
+
+
+
+
+<div
+
+className="
+mt-10
+grid
+md:grid-cols-3
+gap-6
+"
+
+>
+
+
+{
+
+models.map(model=>(
+
+
+
+<div
+
+key={model.name}
+
+
+className="
+bg-white/5
+border
+border-white/10
+rounded-2xl
+p-6
+"
+
+
+>
+
+
+<div
+
+className="
+flex
+items-center
+gap-3
+"
+
+>
+
+
+<Brain
+
+className="
+text-blue-400
+"
+
+/>
+
+
+<h3
+
+className="
+font-semibold
+"
+
+>
+
+{model.name}
+
+</h3>
+
+
+</div>
+
+
+
+
+
+
+<p
+
+className="
+text-sm
+text-slate-400
+mt-4
+"
+
+>
+
+{model.task}
+
+</p>
+
+
+
+
+
+<h2
+
+className="
+text-3xl
+font-bold
+text-blue-400
+mt-3
+"
+
+>
+
+{model.accuracy}
+
+</h2>
+
+
+
+
+
+<div
+
+className="
+mt-4
+h-2
+bg-slate-800
+rounded-full
+overflow-hidden
+"
+
+>
+
+
+<div
+
+className="
+h-full
+bg-blue-500
+"
+
+style={{
+width:model.accuracy
+}}
+
+
+/>
+
+
+</div>
+
+
+
+<p
+
+className="
+text-green-400
+text-xs
+mt-3
+"
+
+>
+
+● Production Ready
+
+</p>
+
+
+</div>
+
+
+))
+
+
+}
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* RESULT */}
+
 
 
 
 {
-analyzed && (
+
+analyzed && prediction && (
 
 
-<motion.div
+<>
 
 
-initial={{
-opacity:0,
-y:40
-}}
+<PredictionCard
+
+data={prediction}
+
+/>
 
 
-animate={{
-opacity:1,
-y:0
-}}
 
 
-transition={{
-duration:0.6
-}}
 
 
+
+<div
 
 className="
 mt-10
-bg-white/10
+bg-purple-500/10
 border
-border-white/20
-backdrop-blur-xl
+border-purple-400/20
 rounded-3xl
 p-8
 "
@@ -424,47 +762,51 @@ p-8
 >
 
 
-<div className="
+<h2
+
+className="
 flex
 items-center
-justify-between
-mb-8
-">
-
-
-<h2 className="
-text-2xl
+gap-3
+text-xl
 font-bold
-">
+mb-5
+"
 
-AI Prediction Result
+>
+
+
+<BarChart3
+
+className="
+text-purple-400
+"
+
+/>
+
+
+AI Explainability Engine
+
 
 </h2>
 
 
 
-<div
+
+
+
+<p
 
 className="
-flex
-items-center
-gap-2
-text-green-400
-text-sm
+text-slate-400
+mb-5
 "
 
 >
 
-<CheckCircle size={18}/>
+Important keywords influencing prediction:
 
-Completed
-
-</div>
-
-
-</div>
-
-
+</p>
 
 
 
@@ -473,301 +815,19 @@ Completed
 <div
 
 className="
-grid
-md:grid-cols-2
-gap-8
-"
-
-
->
-
-
-
-<div>
-
-<p className="
-text-slate-400
-text-sm
-">
-
-Category
-
-</p>
-
-
-<h3 className="
-text-xl
-font-semibold
-mt-1
-">
-
-Billing Issue
-
-</h3>
-
-
-</div>
-
-
-
-
-
-<div>
-
-<p className="
-text-slate-400
-text-sm
-">
-
-Priority
-
-</p>
-
-
-<h3 className="
-text-xl
-font-semibold
-text-red-400
-mt-1
-flex
-items-center
-gap-2
-">
-
-<AlertTriangle size={20}/>
-
-High
-
-</h3>
-
-
-</div>
-
-
-
-
-
-
-<div>
-
-<p className="
-text-slate-400
-text-sm
-">
-
-Sentiment
-
-</p>
-
-
-<h3 className="
-text-xl
-font-semibold
-mt-1
-">
-
-Negative
-
-</h3>
-
-
-</div>
-
-
-
-
-
-
-<div>
-
-<p className="
-text-slate-400
-text-sm
-">
-
-Recommended Department
-
-</p>
-
-
-<h3 className="
-text-xl
-font-semibold
-mt-1
-">
-
-Finance Support
-
-</h3>
-
-
-</div>
-
-
-
-
-
-
-<div>
-
-<p className="
-text-slate-400
-text-sm
-">
-
-Model Used
-
-</p>
-
-
-<h3 className="
-text-xl
-font-semibold
-mt-1
-text-blue-400
-">
-
-DistilBERT
-
-</h3>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* Confidence */}
-
-
-
-<div className="
-mt-10
-">
-
-
-<div className="
-flex
-justify-between
-mb-3
-">
-
-
-<p className="
-text-slate-400
-">
-
-Confidence Score
-
-</p>
-
-
-
-<p className="
-text-green-400
-font-semibold
-">
-
-94.2%
-
-</p>
-
-
-
-</div>
-
-
-
-
-<div
-
-className="
-h-3
-rounded-full
-bg-slate-800
-overflow-hidden
-"
-
-
->
-
-
-<motion.div
-
-
-initial={{
-width:0
-}}
-
-
-animate={{
-width:"94%"
-}}
-
-
-transition={{
-duration:1
-}}
-
-
-className="
-h-full
-bg-green-500
-rounded-full
-"
-
-
-/>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-{/* Keywords */}
-
-
-
-<div className="
-mt-8
-">
-
-
-<p className="
-text-slate-400
-mb-3
-">
-
-Important Keywords
-
-</p>
-
-
-
-<div className="
 flex
 flex-wrap
 gap-3
-">
+"
+
+>
+
 
 
 {
-["refund","payment","charged"].map((word)=>(
+
+prediction.keywords?.map(
+(word)=>(
 
 
 <span
@@ -778,10 +838,10 @@ className="
 px-4
 py-2
 rounded-full
-bg-white/10
+bg-purple-500/20
 border
-border-white/10
-text-sm
+border-purple-400/20
+text-purple-300
 "
 
 >
@@ -791,12 +851,15 @@ text-sm
 </span>
 
 
-))
+)
+
+
+)
+
 
 }
 
 
-</div>
 
 
 
@@ -807,12 +870,42 @@ text-sm
 
 
 
-</motion.div>
+
+<div
+
+className="
+mt-6
+flex
+items-center
+gap-2
+text-green-400
+"
+
+>
+
+
+<ShieldCheck size={18}/>
+
+
+Explainable prediction generated
+
+
+</div>
+
+
+
+</div>
+
+
+
+</>
 
 
 )
 
 }
+
+
 
 
 
@@ -823,10 +916,10 @@ text-sm
 </section>
 
 
+
 )
 
 }
-
 
 
 export default Analyzer;

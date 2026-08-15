@@ -4,6 +4,8 @@ import Landing from "./pages/Landing";
 import Analyzer from "./pages/Analyzer";
 import Dashboard from "./pages/Dashboard";
 
+import DashboardLayout from "./layouts/DashboardLayout";
+
 
 function App() {
 
@@ -31,7 +33,11 @@ function App() {
         {/* Analytics Dashboard */}
         <Route
           path="/dashboard"
-          element={<Dashboard />}
+          element={
+            <DashboardLayout>
+              <Dashboard />
+            </DashboardLayout>
+          }
         />
 
 
