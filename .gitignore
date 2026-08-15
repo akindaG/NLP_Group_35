@@ -2,6 +2,7 @@
 venv/
 bert_env/
 .venv/
+integration_env/
 
 # Python cache
 __pycache__/
