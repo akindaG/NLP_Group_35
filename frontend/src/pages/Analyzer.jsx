@@ -117,9 +117,21 @@ setLoading(false);
 const models = [
 
 {
+name:"Logistic Regression",
+task:"Ticket Type Classification",
+accuracy:"83.69%"
+},
+
+{
 name:"BiLSTM",
 task:"Ticket Type Classification",
 accuracy:"85.53%"
+},
+
+{
+name:"Tuned SVM",
+task:"Support Queue Routing",
+accuracy:"55.08%"
 },
 
 {
@@ -132,6 +144,12 @@ accuracy:"53.06%"
 name:"DistilBERT",
 task:"Support Queue Routing",
 accuracy:"36.83%"
+},
+
+{
+name:"Optimized GRU",
+task:"Support Queue Routing",
+accuracy:"34.64%"
 }
 
 ];

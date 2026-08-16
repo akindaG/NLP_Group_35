@@ -28,6 +28,12 @@ MODEL_RESULTS = [
     },
 
     {
+        "name": "Word2Vec + Tuned SVM",
+        "task": "Support Queue Routing",
+        "accuracy": 55.08
+    },
+
+    {
         "name": "TF-IDF + XGBoost",
         "task": "Support Queue Routing",
         "accuracy": 53.06
@@ -37,10 +43,15 @@ MODEL_RESULTS = [
         "name": "DistilBERT",
         "task": "Support Queue Routing",
         "accuracy": 36.83
+    },
+
+    {
+        "name": "Optimized GRU",
+        "task": "Support Queue Routing",
+        "accuracy": 34.64
     }
 
 ]
-
 
 DEPLOYED_MODEL_ACCURACY = 53.06
 
