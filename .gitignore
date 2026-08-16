@@ -1,4 +1,23 @@
+# Virtual environments
 venv/
-data/raw/*.csv
+bert_env/
+.venv/
+integration_env/
+
+# Python cache
 __pycache__/
+*.pyc
+
+# Jupyter checkpoints
 .ipynb_checkpoints/
+
+# Model checkpoints
+distilbert_results/
+
+# Member 3 models
+models/member3/distilbert_model/
+models/member3/distilbert_tokenizer/
+models/member3/distilbert_label_encoder.pkl
+
+# Member 1 models
+src/models/member1/
