@@ -6,23 +6,151 @@ from backend.services.model_loader import (
 from backend.services.preprocessing import clean_text
 
 
-
 # ==================================================
 # Keyword extraction
 # ==================================================
 
+STOP_WORDS = {
+    "the",
+    "is",
+    "are",
+    "a",
+    "an",
+    "and",
+    "this",
+    "that",
+    "with",
+    "from",
+    "for",
+    "my",
+    "our",
+    "to",
+    "of",
+    "in",
+    "on",
+    "it",
+    "i",
+    "we"
+}
+
+
 def extract_keywords(text):
 
-    words = text.split()
+    words = text.lower().split()
 
-    important_words = [
+    keywords = [
         word
         for word in words
-        if len(word) > 4
+        if word not in STOP_WORDS
+        and len(word) > 3
     ]
 
-    return important_words[:5]
+    return keywords[:5]
 
+
+# ==================================================
+# Priority recommendation
+# ==================================================
+
+def determine_priority(text):
+
+    text = text.lower()
+
+    high_priority_terms = [
+        "urgent",
+        "critical",
+        "security breach",
+        "data breach",
+        "outage",
+        "cannot",
+        "unable",
+        "failed",
+        "not working",
+        "blocked",
+        "error"
+    ]
+
+    low_priority_terms = [
+        "information",
+        "inquiry",
+        "documentation",
+        "guidance",
+        "question"
+    ]
+
+    if any(
+        term in text
+        for term in high_priority_terms
+    ):
+        return "High"
+
+    if any(
+        term in text
+        for term in low_priority_terms
+    ):
+        return "Low"
+
+    return "Medium"
+
+
+# ==================================================
+# Lightweight sentiment recommendation
+# ==================================================
+
+POSITIVE_WORDS = {
+    "good",
+    "great",
+    "excellent",
+    "happy",
+    "thanks",
+    "thank",
+    "resolved",
+    "working",
+    "satisfied"
+}
+
+
+NEGATIVE_WORDS = {
+    "failed",
+    "failure",
+    "problem",
+    "issue",
+    "error",
+    "unable",
+    "cannot",
+    "wrong",
+    "slow",
+    "outage",
+    "broken",
+    "malfunction",
+    "disruption",
+    "breach"
+}
+
+
+def analyze_sentiment(text):
+
+    words = text.lower().split()
+
+    positive_score = sum(
+        1
+        for word in words
+        if word in POSITIVE_WORDS
+    )
+
+    negative_score = sum(
+        1
+        for word in words
+        if word in NEGATIVE_WORDS
+    )
+
+    if negative_score > positive_score:
+        return "Negative"
+
+    if positive_score > negative_score:
+        return "Positive"
+
+    return "Neutral"
 
 
 # ==================================================
@@ -31,76 +159,119 @@ def extract_keywords(text):
 
 def predict_ticket(text):
 
-    print("📝 Starting prediction")
+    print("Starting SupportIQ prediction")
 
 
-    print("1️⃣ Cleaning text")
+    # ----------------------------------------------
+    # 1. Clean input text
+    # ----------------------------------------------
 
     cleaned = clean_text(text)
 
 
-
-    print("2️⃣ Applying TF-IDF")
+    # ----------------------------------------------
+    # 2. TF-IDF feature transformation
+    # ----------------------------------------------
 
     vector = models["vectorizer"].transform(
         [cleaned]
     )
 
 
-
-    print("3️⃣ Loading XGBoost")
+    # ----------------------------------------------
+    # 3. Load deployed XGBoost model
+    # ----------------------------------------------
 
     xgb_model = get_xgb_model()
 
 
-
-    print("4️⃣ Running prediction")
-
+    # ----------------------------------------------
+    # 4. Predict support queue
+    # ----------------------------------------------
 
     prediction = xgb_model.predict(
         vector
     )
-
 
     probabilities = xgb_model.predict_proba(
         vector
     )
 
 
+    # ----------------------------------------------
+    # 5. Decode queue
+    # ----------------------------------------------
 
-    print("5️⃣ Decoding category")
+    support_queue = (
+        models["encoder"]
+        .inverse_transform(
+            prediction
+        )[0]
+    )
 
 
-    label = models["encoder"].inverse_transform(
-        prediction
-    )[0]
-
-
+    # ----------------------------------------------
+    # 6. Confidence
+    # ----------------------------------------------
 
     confidence = round(
-    float(probabilities.max()),
-    3
-    ) if probabilities is not None else None
+        float(
+            probabilities.max()
+        ),
+        3
+    )
 
 
+    # ----------------------------------------------
+    # 7. Additional decision-support outputs
+    # ----------------------------------------------
+
+    priority = determine_priority(
+        cleaned
+    )
+
+    sentiment = analyze_sentiment(
+        cleaned
+    )
 
     keywords = extract_keywords(
         cleaned
     )
 
 
+    print(
+        "SupportIQ prediction completed"
+    )
 
-    print("✅ Prediction completed")
 
+    # ----------------------------------------------
+    # 8. API response
+    # ----------------------------------------------
 
     return {
 
-        "category": label,
+        "category":
+            support_queue,
 
-        "confidence": confidence,
+        "confidence":
+            confidence,
 
-        "keywords": keywords,
+        "priority":
+            priority,
 
-        "cleaned_text": cleaned
+        "department":
+            support_queue,
+
+        "sentiment":
+            sentiment,
+
+        "model_used":
+            "TF-IDF + XGBoost",
+
+        "keywords":
+            keywords,
+
+        "cleaned_text":
+            cleaned
 
     }

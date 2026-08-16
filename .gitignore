@@ -21,3 +21,9 @@ models/member3/distilbert_label_encoder.pkl
 
 # Member 1 models
 src/models/member1/
+
+# Runtime prediction history
+backend/data/predictions.json
+
+# Node dependencies
+node_modules/
