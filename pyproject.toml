@@ -1,2 +1,16 @@
+[project]
+name = "supportiq-api"
+version = "1.1.0"
+description = "SupportIQ FastAPI backend for customer support ticket intelligence"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi==0.141.1",
+  "joblib==1.5.3",
+  "numpy==2.4.6",
+  "pydantic==2.13.4",
+  "scikit-learn==1.9.0",
+  "xgboost==2.1.1",
+]
+
 [tool.vercel]
 entrypoint = "backend.app:app"
