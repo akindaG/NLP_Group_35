@@ -21,7 +21,7 @@ def _cors_origins() -> list[str]:
 app = FastAPI(
     title="SupportIQ AI API",
     description="NLP-based customer support ticket intelligence API",
-    version="1.1.0",
+    version="1.1.1",
     docs_url="/docs",
     redoc_url="/redoc",
 )
@@ -51,9 +51,14 @@ def home():
 @app.get("/health", tags=["System"])
 def health_check():
     model_status = get_model_status()
+    ready = bool(model_status["ready"])
+
     return {
-        "status": "healthy" if model_status["ready"] else "degraded",
+        "status": "healthy" if ready else "degraded",
         "service": "SupportIQ API",
         "version": app.version,
-        "models": model_status,
+        # Backward-compatible field consumed by the current React UI.
+        "models": "loaded" if ready else "unavailable",
+        # Detailed artifact readiness for diagnostics and future UI use.
+        "model_status": model_status,
     }

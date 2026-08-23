@@ -1,4 +1,4 @@
-import {getHealth} from "../services/api";
+import { getHealth } from "../services/api";
 import { useEffect, useState } from "react";
 import {
     LayoutDashboard,
@@ -18,33 +18,45 @@ import { NavLink } from "react-router-dom";
 
 function Sidebar(){
     const [health, setHealth] = useState({
-    status: "checking",
-    models: "loading"
-});
+        status: "checking",
+        models: "loading",
+        latency: null
+    });
 
-useEffect(() => {
+    useEffect(() => {
+        let active = true;
 
-    fetch("http://127.0.0.1:8000/health")
-        .then(res => res.json())
-        .then(data => {
-            setHealth(data);
-        })
-        .catch(() => {
-            setHealth({
-                status:"offline",
-                models:"unavailable"
-            });
-        });
+        const checkHealth = async () => {
+            const start = Date.now();
 
-}, []);
+            try {
+                const data = await getHealth();
+                if (!active) return;
 
-useEffect(()=>{
+                setHealth({
+                    ...data,
+                    latency: Date.now() - start
+                });
+            }
+            catch {
+                if (!active) return;
 
-getHealth()
-.then(data=>setHealth(data))
-.catch(()=>{});
+                setHealth({
+                    status: "offline",
+                    models: "unavailable",
+                    latency: null
+                });
+            }
+        };
 
-},[]);
+        checkHealth();
+        const interval = setInterval(checkHealth, 30000);
+
+        return () => {
+            active = false;
+            clearInterval(interval);
+        };
+    }, []);
 
 
 const menuGroups=[
@@ -430,20 +442,16 @@ text-xs
 
 
 <p
-className="
-text-green-400
-"
+className={health?.status === "healthy" ? "text-green-400" : "text-red-400"}
 >
-● DistilBERT Online
+{health?.status === "healthy" ? "● SupportIQ API Online" : "● SupportIQ API Offline"}
 </p>
 
 
 <p
-className="
-text-green-400
-"
+className={health?.models === "loaded" ? "text-green-400" : "text-slate-400"}
 >
-● XGBoost Ready
+{health?.models === "loaded" ? "● XGBoost Ready" : "● Models Unavailable"}
 </p>
 
 
@@ -452,7 +460,7 @@ className="
 text-blue-300
 "
 >
-⚡ Latency {health?.latency || "--"}ms
+⚡ Latency {health?.latency ?? "--"}ms
 </p>
 
 
