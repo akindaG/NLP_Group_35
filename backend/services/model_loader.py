@@ -1,109 +1,67 @@
-import joblib
+"""Centralized lazy loading for SupportIQ model artifacts."""
+
 from pathlib import Path
-
-
-# ==================================================
-# Project paths
-# ==================================================
+import joblib
 
 BASE_DIR = Path(__file__).resolve().parents[2]
-
 MODEL_DIR = BASE_DIR / "models" / "member3"
 
-
-# ==================================================
-# Global cache
-# ==================================================
+ARTIFACT_PATHS = {
+    "vectorizer": MODEL_DIR / "tfidf_vectorizer.pkl",
+    "encoder": MODEL_DIR / "label_encoder.pkl",
+    "xgb": MODEL_DIR / "xgboost.pkl",
+}
 
 _models = {}
 
 
-# ==================================================
-# Load static models
-# ==================================================
-
-def load_models():
-
-    global _models
-
-
-    if _models:
-        return _models
+def _require_artifact(name: str) -> Path:
+    path = ARTIFACT_PATHS[name]
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Required model artifact '{name}' was not found at {path}. "
+            "Ensure the trained Member 3 artifacts are available before starting inference."
+        )
+    return path
 
 
-    print("🚀 START MODEL LOADING")
-
-
-    # -----------------------------
-    # TF-IDF
-    # -----------------------------
-
-    print("Loading TF-IDF...")
-
-    _models["vectorizer"] = joblib.load(
-        MODEL_DIR / "tfidf_vectorizer.pkl"
-    )
-
-    print("✅ TF-IDF loaded")
-
-
-    # -----------------------------
-    # Encoder
-    # -----------------------------
-
-    print("Loading Label Encoder...")
-
-    _models["encoder"] = joblib.load(
-        MODEL_DIR / "label_encoder.pkl"
-    )
-
-    print("✅ Encoder loaded")
-
-
-    print("🎉 STATIC MODELS READY")
-
-
+def load_models() -> dict:
+    """Load the static TF-IDF vectorizer and label encoder once."""
+    if "vectorizer" not in _models:
+        _models["vectorizer"] = joblib.load(_require_artifact("vectorizer"))
+    if "encoder" not in _models:
+        _models["encoder"] = joblib.load(_require_artifact("encoder"))
     return _models
 
 
+def get_models() -> dict:
+    """Return the shared model cache after static artifacts are initialized."""
+    return load_models()
 
-# ==================================================
-# Lazy XGBoost loader
-# ==================================================
 
 def get_xgb_model():
-
+    """Load the XGBoost classifier only when inference first needs it."""
+    load_models()
     if "xgb" not in _models:
-
-        print("Loading XGBoost...")
-
-
-        model_path = MODEL_DIR / "xgboost.pkl"
-
-
-        print(
-            "XGBoost path:",
-            model_path
-        )
-
-
-        _models["xgb"] = joblib.load(
-            model_path
-        )
-
-
-        print(
-            "✅ XGBoost loaded:",
-            type(_models["xgb"])
-        )
-
-
+        _models["xgb"] = joblib.load(_require_artifact("xgb"))
     return _models["xgb"]
 
 
+def get_model_status() -> dict:
+    """Return artifact availability and in-memory load state for health checks."""
+    artifacts = {
+        name: {
+            "exists": path.exists(),
+            "loaded": name in _models,
+            "path": str(path.relative_to(BASE_DIR)),
+        }
+        for name, path in ARTIFACT_PATHS.items()
+    }
+    return {
+        "ready": all(item["exists"] for item in artifacts.values()),
+        "artifacts": artifacts,
+    }
 
-# ==================================================
-# Initialize
-# ==================================================
 
-models = load_models()
+# Backward-compatible cache reference for older imports. New code should call get_models().
+models = _models

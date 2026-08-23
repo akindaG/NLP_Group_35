@@ -1,115 +1,87 @@
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = (
+    import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000"
+).replace(/\/$/, "");
+
+const DEFAULT_TIMEOUT_MS = 15000;
 
 
-export async function getHealth() {
-
-    const response = await fetch(
-        `${API_BASE_URL}/health`
+async function request(path, options = {}) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(
+        () => controller.abort(),
+        DEFAULT_TIMEOUT_MS
     );
 
-    if (!response.ok) {
-        throw new Error("Backend unavailable");
-    }
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}${path}`,
+            {
+                ...options,
+                signal: controller.signal,
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(options.headers || {})
+                }
+            }
+        );
 
-    return await response.json();
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            const detail = payload.detail || `Request failed with status ${response.status}`;
+            throw new Error(detail);
+        }
+
+        return payload;
+    }
+    catch (error) {
+        if (error.name === "AbortError") {
+            throw new Error("SupportIQ API request timed out. Check that the backend is running.");
+        }
+        throw error;
+    }
+    finally {
+        clearTimeout(timeoutId);
+    }
 }
 
 
-
-export async function getAnalytics() {
-
-    const response = await fetch(
-        `${API_BASE_URL}/analytics/`
-    );
-
-    if (!response.ok) {
-        throw new Error("Analytics unavailable");
-    }
-
-    return await response.json();
-
+export function getHealth() {
+    return request("/health", { method: "GET" });
 }
 
 
-
-export async function getHistory() {
-
-    const response = await fetch(
-        `${API_BASE_URL}/analytics/history`
-    );
-
-    if (!response.ok) {
-        throw new Error("History unavailable");
-    }
-
-    return await response.json();
-
+export function getAnalytics() {
+    return request("/analytics/", { method: "GET" });
 }
 
 
+export function getHistory() {
+    return request("/analytics/history", { method: "GET" });
+}
 
-export async function predictTicket(text) {
 
-    const response = await fetch(
-        `${API_BASE_URL}/predict/`,
+export function predictTicket(text) {
+    return request(
+        "/predict/",
         {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                text:text
-            })
+            method: "POST",
+            body: JSON.stringify({ text })
         }
     );
-
-
-    if (!response.ok) {
-        throw new Error("Prediction failed");
-    }
-
-
-    return await response.json();
-
 }
 
-export async function analyzeTicket(text){
 
-    const response = await fetch(
-        `${API_BASE_URL}/predict/`,
-        {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                text:text
-            })
-        }
-    );
-
-
-    if(!response.ok){
-        throw new Error("Analysis failed");
-    }
-
-
-    return await response.json();
-
+// Backward-compatible alias used by the Analyzer page.
+export function analyzeTicket(text) {
+    return predictTicket(text);
 }
 
-export async function getPredictionHistory() {
 
-    const response = await fetch(
-        `${API_BASE_URL}/analytics/history`
-    );
-
-
-    if (!response.ok) {
-        throw new Error("Prediction history unavailable");
-    }
-
-
-    return await response.json();
-
+// Backward-compatible alias used by dashboard components.
+export function getPredictionHistory() {
+    return getHistory();
 }
+
+
+export { API_BASE_URL };
