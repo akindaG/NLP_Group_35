@@ -12,6 +12,17 @@ The deployed application routes support tickets with a **TF-IDF + XGBoost** clas
 
 > **Portfolio note:** this is an academic decision-support prototype. The support queue is predicted by a trained ML model. Priority, sentiment, and keyword outputs in the deployed application are transparent rule-based helpers, not separately trained production models.
 
+### My contribution
+
+My individual ownership in the group project includes **exploratory data analysis, XGBoost, DistilBERT, backend API work, application integration, and deployment work**. Member-specific branches and commit history are retained as contribution evidence.
+
+**Verified model highlights**
+- Ticket type: **BiLSTM 85.53% accuracy**
+- Queue routing: **Tuned SVM 55.08% accuracy**
+- Deployed queue model: **TF-IDF + XGBoost 53.06% accuracy**
+
+The highest-scoring routing experiment is not the deployed model. XGBoost remained integrated because its serialized artifacts were already connected to runtime preprocessing, probability outputs, prediction history, and the application.
+
 **Live frontend:** https://nlp-group-35.vercel.app  
 **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)  
 **Model results:** [docs/MODEL_RESULTS.md](docs/MODEL_RESULTS.md)  
