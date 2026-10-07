@@ -4,26 +4,43 @@ bert_env/
 .venv/
 integration_env/
 
-# Python cache
+# Python cache and test artifacts
 __pycache__/
 *.pyc
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Jupyter checkpoints
 .ipynb_checkpoints/
 
+# Local environment and secrets
+.env
+.env.*
+!**/.env.example
+
 # Model checkpoints
 distilbert_results/
 
-# Member 3 models
+# Member 3 large transformer artifacts
 models/member3/distilbert_model/
 models/member3/distilbert_tokenizer/
 models/member3/distilbert_label_encoder.pkl
 
-# Member 1 models
+# Member 1 model artifact directory
 src/models/member1/
 
 # Runtime prediction history
 backend/data/predictions.json
 
-# Node dependencies
+# Node dependencies and frontend build
 node_modules/
+frontend/dist/
+dist/
+
+# Logs and local tooling
+*.log
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

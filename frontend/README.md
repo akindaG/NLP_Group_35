@@ -1,16 +1,105 @@
-# React + Vite
+# SupportIQ Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite interface for the SupportIQ customer support intelligence project.
 
-Currently, two official plugins are available:
+The frontend provides three main views:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- a landing page,
+- an AI ticket analyzer,
+- an analytics dashboard.
 
-## React Compiler
+It consumes the FastAPI backend through the shared client in:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+~~~text
+src/services/api.js
+~~~
 
-## Expanding the ESLint configuration
+## Local Development
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Install dependencies:
+
+~~~bash
+npm ci
+~~~
+
+Copy the environment example:
+
+~~~bash
+cp .env.example .env
+~~~
+
+Windows PowerShell:
+
+~~~powershell
+Copy-Item .env.example .env
+~~~
+
+The default configuration is:
+
+~~~text
+VITE_API_BASE_URL=http://127.0.0.1:8000
+~~~
+
+Start the development server:
+
+~~~bash
+npm run dev
+~~~
+
+Vite normally serves the app at:
+
+~~~text
+http://localhost:5173
+~~~
+
+## Production Build
+
+~~~bash
+npm run build
+~~~
+
+The generated static site is written to:
+
+~~~text
+dist/
+~~~
+
+## Frontend Routes
+
+| Route | Purpose |
+| --- | --- |
+| / | Landing page |
+| /analyzer | Submit and analyze a support ticket |
+| /dashboard | View prediction history, model results, and runtime analytics |
+
+## Backend Contract
+
+The frontend expects these backend endpoints:
+
+~~~text
+GET  /health
+POST /predict/
+GET  /analytics/
+GET  /analytics/history
+~~~
+
+The deployed queue prediction comes from the TF-IDF + XGBoost model. Priority, sentiment, and keyword outputs are transparent rule-based helpers returned by the backend.
+
+## Deployment
+
+The repository root contains a Vercel configuration that builds this frontend.
+
+Public frontend:
+
+https://nlp-group-35.vercel.app
+
+A deployed frontend still needs VITE_API_BASE_URL to point to a reachable FastAPI backend for live prediction and analytics.
+
+## Main Project Documentation
+
+Return to the project root documentation:
+
+- [Project README](../README.md)
+- [Architecture](../docs/ARCHITECTURE.md)
+- [Development guide](../docs/DEVELOPMENT.md)
+- [Model results](../docs/MODEL_RESULTS.md)
